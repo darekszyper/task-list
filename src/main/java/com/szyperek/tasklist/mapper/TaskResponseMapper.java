@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Mapper(componentModel = "spring")
-public abstract class TaskMapper {
+public abstract class TaskResponseMapper {
 
     public abstract TaskResponse mapTaskEntityToTaskResponse(TaskEntity taskEntity);
 

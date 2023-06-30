@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
 <head>
     <meta charset="ISO-8859-1">
     <title>Task List</title>
@@ -32,9 +32,9 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/tasks}">Finished</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a th:href="@{/students/new}" class="btn btn-primary btn-sm mt-1">+ Add Task</a>-->
-<!--            </li>-->
+            <li class="nav-item">
+                <a th:href="@{/tasks/new}" class="btn btn-primary btn-sm mt-1">+ Add Task</a>
+            </li>
             <li class="nav-item">
                 <a class="btn btn-success btn-sm ml-lg-2 mt-1" th:href="@{/tasks}">Request Counter</a>
             </li>
