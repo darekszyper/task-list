@@ -14,4 +14,8 @@ public interface TaskService {
     void changeIsFinished(Long id);
 
     void addTask(TaskRequest taskRequest);
+
+    TaskResponse getTaskById(Long id);
+
+    void editTask(Long id, TaskRequest taskRequest);
 }

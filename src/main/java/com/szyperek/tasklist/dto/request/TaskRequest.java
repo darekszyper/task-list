@@ -21,7 +21,7 @@ public class TaskRequest {
     private String title;
     @Size(max = 1000, message = "Description can't exceed 1000 characters.")
     private String description;
-    @Future
+    @Future(message = "Date must be in the future")
     @NotNull(message = "Due date can't be empty.")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dueDate;

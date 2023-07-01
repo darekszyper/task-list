@@ -39,11 +39,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void changeIsFinished(Long id) {
-        Optional<TaskEntity> optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            TaskEntity task = optionalTask.get();
-            task.setFinished(!task.isFinished());
-            taskRepository.save(task);
+        if (taskRepository.existsById(id)) {
+            taskRepository.changeIsFinished(id);
         } else {
             throw new EntityNotFoundException("Task with id: " + id + " not found");
         }
@@ -52,5 +49,29 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void addTask(TaskRequest taskRequest) {
         taskRepository.save(taskRequestMapper.mapTaskRequestToTaskEntity(taskRequest));
+    }
+
+    @Override
+    public TaskResponse getTaskById(Long id) {
+        Optional<TaskEntity> taskEntityOptional = taskRepository.findById(id);
+        if (taskEntityOptional.isPresent()) {
+            return taskResponseMapper.mapTaskEntityToTaskResponse(taskEntityOptional.get());
+        } else {
+            throw new EntityNotFoundException("Task with id: " + id + " not found");
+        }
+    }
+
+    @Override
+    public void editTask(Long id, TaskRequest taskRequest) {
+        Optional<TaskEntity> taskEntityOptional = taskRepository.findById(id);
+        if (taskEntityOptional.isPresent()) {
+            TaskEntity existingTask = taskEntityOptional.get();
+            existingTask.setTitle(taskRequest.getTitle());
+            existingTask.setDueDate(taskRequest.getDueDate());
+            existingTask.setDescription(taskRequest.getDescription());
+            taskRepository.save(existingTask);
+        } else {
+            throw new EntityNotFoundException("Task with id: " + id + " not found");
+        }
     }
 }

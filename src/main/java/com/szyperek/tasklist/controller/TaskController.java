@@ -33,6 +33,26 @@ public class TaskController {
         return "add_task";
     }
 
+    @GetMapping("edit/{id}")
+    public String editTaskForm(@PathVariable Long id, Model model) {
+        model.addAttribute("task", taskService.getTaskById(id));
+        return "edit_task";
+    }
+
+    @PostMapping("/edit/{id}")
+    public RedirectView editTask(@PathVariable Long id,
+                                 @ModelAttribute("task") @Valid TaskRequest taskRequest,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            log.error("Validation error: {}", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("validationError", true);
+            return new RedirectView("/tasks/edit/" + id);
+        }
+        taskService.editTask(id, taskRequest);
+        return new RedirectView("/tasks");
+    }
+
     @PostMapping("/new")
     public RedirectView addTask(@ModelAttribute("task") @Valid TaskRequest taskRequest,
                                 BindingResult bindingResult,
