@@ -9,6 +9,10 @@ public interface TaskService {
 
     List<TaskResponse> getAllTasksOrderedByDueDateAsc();
 
+    List<TaskResponse> getActiveTasksOrderedByDueDateAsc();
+
+    List<TaskResponse> getFinishedTasksOrderedByDueDateAsc();
+
     void deleteTaskById(Long id);
 
     void changeIsFinished(Long id);
@@ -18,4 +22,5 @@ public interface TaskService {
     TaskResponse getTaskById(Long id);
 
     void editTask(Long id, TaskRequest taskRequest);
+
 }

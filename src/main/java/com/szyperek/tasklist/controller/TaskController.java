@@ -27,6 +27,18 @@ public class TaskController {
         return "all_tasks";
     }
 
+    @GetMapping("/active")
+    public String getActiveTasksOrderedByDueDateAsc(Model model) {
+        model.addAttribute("tasks", taskService.getActiveTasksOrderedByDueDateAsc());
+        return "active_tasks";
+    }
+
+    @GetMapping("/finished")
+    public String getFinishedTasksOrderedByDueDateAsc(Model model) {
+        model.addAttribute("tasks", taskService.getFinishedTasksOrderedByDueDateAsc());
+        return "finished_tasks";
+    }
+
     @GetMapping("/new")
     public String addTaskForm(Model model) {
         model.addAttribute("task", new TaskRequest());
@@ -50,7 +62,7 @@ public class TaskController {
             return new RedirectView("/tasks/edit/" + id);
         }
         taskService.editTask(id, taskRequest);
-        return new RedirectView("/tasks");
+        return new RedirectView("/tasks/active");
     }
 
     @PostMapping("/new")
@@ -64,7 +76,7 @@ public class TaskController {
         }
 
         taskService.addTask(taskRequest);
-        return new RedirectView("/tasks");
+        return new RedirectView("/tasks/active");
     }
 
     @PostMapping("/{id}")

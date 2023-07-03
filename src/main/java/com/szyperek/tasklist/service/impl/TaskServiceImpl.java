@@ -31,6 +31,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskResponse> getActiveTasksOrderedByDueDateAsc() {
+        return taskRepository.findAllByOrderByDueDateAsc().stream()
+                .filter(task -> !task.isFinished())
+                .map(taskResponseMapper::mapTaskEntityToTaskResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskResponse> getFinishedTasksOrderedByDueDateAsc() {
+        return taskRepository.findAllByOrderByDueDateAsc().stream()
+                .filter(TaskEntity::isFinished)
+                .map(taskResponseMapper::mapTaskEntityToTaskResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteTaskById(Long id) {
         if (taskRepository.existsById(id)) {
             taskRepository.deleteById(id);
