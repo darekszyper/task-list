@@ -50,6 +50,8 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTaskById(Long id) {
         if (taskRepository.existsById(id)) {
             taskRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Task with id: " + id + " not found");
         }
     }
 

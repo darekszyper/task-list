@@ -13,11 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import static com.szyperek.tasklist.controller.TaskController.TASKS;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/tasks")
+@RequestMapping(TASKS)
 public class TaskController {
+
+    public final static String TASKS = "/tasks";
+    public final static String ACTIVE = "/active";
+    public final static String FINISHED = "/finished";
+    public final static String CREATE = "/new";
+    public final static String EDIT = "/edit/{id}";
+    public final static String DELETE = "/{id}";
+    public final static String CHANGE_STATUS = "done/{id}";
 
     private final TaskService taskService;
 
@@ -27,45 +37,31 @@ public class TaskController {
         return "all_tasks";
     }
 
-    @GetMapping("/active")
+    @GetMapping(ACTIVE)
     public String getActiveTasksOrderedByDueDateAsc(Model model) {
         model.addAttribute("tasks", taskService.getActiveTasksOrderedByDueDateAsc());
         return "active_tasks";
     }
 
-    @GetMapping("/finished")
+    @GetMapping(FINISHED)
     public String getFinishedTasksOrderedByDueDateAsc(Model model) {
         model.addAttribute("tasks", taskService.getFinishedTasksOrderedByDueDateAsc());
         return "finished_tasks";
     }
 
-    @GetMapping("/new")
+    @GetMapping(CREATE)
     public String addTaskForm(Model model) {
         model.addAttribute("task", new TaskRequest());
         return "add_task";
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping(EDIT)
     public String editTaskForm(@PathVariable Long id, Model model) {
         model.addAttribute("task", taskService.getTaskById(id));
         return "edit_task";
     }
 
-    @PostMapping("/edit/{id}")
-    public RedirectView editTask(@PathVariable Long id,
-                                 @ModelAttribute("task") @Valid TaskRequest taskRequest,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            log.error("Validation error: {}", bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("validationError", true);
-            return new RedirectView("/tasks/edit/" + id);
-        }
-        taskService.editTask(id, taskRequest);
-        return new RedirectView("/tasks/active");
-    }
-
-    @PostMapping("/new")
+    @PostMapping(CREATE)
     public RedirectView addTask(@ModelAttribute("task") @Valid TaskRequest taskRequest,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
@@ -79,14 +75,28 @@ public class TaskController {
         return new RedirectView("/tasks/active");
     }
 
-    @PostMapping("/{id}")
+    @PostMapping(EDIT)
+    public RedirectView editTask(@PathVariable Long id,
+                                 @ModelAttribute("task") @Valid TaskRequest taskRequest,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            log.error("Validation error: {}", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("validationError", true);
+            return new RedirectView("/tasks/edit/" + id);
+        }
+        taskService.editTask(id, taskRequest);
+        return new RedirectView("/tasks/active");
+    }
+
+    @PostMapping(DELETE)
     public String deleteTaskById(@PathVariable Long id, HttpServletRequest request) {
         taskService.deleteTaskById(id);
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
     }
 
-    @PostMapping("done/{id}")
+    @PostMapping(CHANGE_STATUS)
     public String changeIsFinished(@PathVariable Long id, HttpServletRequest request) {
         taskService.changeIsFinished(id);
         String referer = request.getHeader("Referer");
