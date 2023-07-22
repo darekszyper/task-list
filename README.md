@@ -1,4 +1,14 @@
-TaskList is a simple task management application that allows users to manage their to-do list. It enables users to add, edit, and delete tasks, as well as mark them as completed. The application is built with Java and utilizes the Spring Boot framework, along with a PostgreSQL database.
+## Web application that allows users to manage their to-do list. It enables users to add, edit, and delete tasks, as well as mark them as completed. The application is built with Java and utilizes the Spring Boot framework, along with a PostgreSQL database.
+
+## Technologies:
+- Java 17
+- Spring Boot 3
+- Thymeleaf
+- PostgreSQL
+- Liquibase
+- Mapstruct
+- Lombok
+- Bootstrap
 
 ## Instructions for Running the Application:
 
@@ -9,3 +19,4 @@ TaskList is a simple task management application that allows users to manage the
 - Now, you can build and run the TaskList application.
 - The TaskList application will start, and you can access it in your web browser at http://localhost:8080/tasks.
 - You can now use the TaskList application to manage your tasks. Any tasks you add, edit, or delete will be stored in the PostgreSQL database.
+
