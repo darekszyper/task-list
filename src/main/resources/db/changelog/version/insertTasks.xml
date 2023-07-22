@@ -7,31 +7,31 @@
     <changeSet id="2" author="Dariusz Szyperek">
         <insert tableName="tasks">
             <column name="title" value="Task 1"/>
-            <column name="due_date" value="2023-07-22 10:30:00"/>
+            <column name="due_date" value="2027-07-22 10:30:00"/>
             <column name="is_finished" value="false"/>
             <column name="description" value="Sample description for Task 1"/>
         </insert>
         <insert tableName="tasks">
             <column name="title" value="Task 2"/>
-            <column name="due_date" value="2023-07-21 13:30:00"/>
+            <column name="due_date" value="2027-07-21 13:30:00"/>
             <column name="is_finished" value="true"/>
             <column name="description" value="Sample description for Task 2"/>
         </insert>
         <insert tableName="tasks">
             <column name="title" value="Task 3"/>
-            <column name="due_date" value="2023-07-11 10:00:00"/>
+            <column name="due_date" value="2027-07-11 10:00:00"/>
             <column name="is_finished" value="false"/>
             <column name="description" value="Sample description for Task 3"/>
         </insert>
         <insert tableName="tasks">
             <column name="title" value="Task 4"/>
-            <column name="due_date" value="2023-07-04 12:30:00"/>
+            <column name="due_date" value="2027-07-04 12:30:00"/>
             <column name="is_finished" value="true"/>
             <column name="description" value="Sample description for Task 4"/>
         </insert>
         <insert tableName="tasks">
             <column name="title" value="Task 5"/>
-            <column name="due_date" value="2023-07-05 11:30:00"/>
+            <column name="due_date" value="2027-07-05 11:30:00"/>
             <column name="is_finished" value="false"/>
             <column name="description" value="Sample description for Task 5"/>
         </insert>
